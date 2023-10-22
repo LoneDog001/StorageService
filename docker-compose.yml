@@ -1,0 +1,25 @@
+version: "3"
+services:
+  cloudservice:
+    container_name: cloudservice
+    build:
+      context: .
+    ports:
+      - "9999:9999"
+    depends_on:
+      - database
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://localhost:33061/my_db
+      SPRING_DATASOURCE_USERNAME: bestuser
+      SPRING_DATASOURCE_PASSWORD: bestuser
+
+  database:
+    image: my_db
+    restart: always
+
+    environment:
+      MY_DB: my_db
+      MY_USER: bestuser
+      MY_PASSWORD: bestuser
+    ports:
+      - "33061:33061"
